@@ -144,3 +144,17 @@ print("Test function 9:")
 print(reverse_list([37, 2, 1, -9]))
 print("===========================")
 
+def reverse_list_with_swap(listOfNumbers):
+    left_index = 0
+    right_index = len(listOfNumbers) -1
+    for num in range (int(len(listOfNumbers)/2)):
+        listOfNumbers[left_index], listOfNumbers[right_index] = listOfNumbers[right_index], listOfNumbers[left_index]
+        left_index += 1
+        right_index -= 1
+    return listOfNumbers
+
+# Test the function
+print("Test function 9 without new list:")
+print(reverse_list_with_swap([37, 2, 1, -9]))
+print("===========================")
+print(reverse_list_with_swap([1, 2, 3, 4, 5]))
