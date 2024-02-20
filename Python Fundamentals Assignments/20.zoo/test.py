@@ -1,7 +1,7 @@
-import Zoo
-import Bear
-import Lion
-import Tiger
+from Zoo import Zoo
+from Bear import Bear
+from Lion import Lion
+from Tiger import Tiger
 
 zoo1 = Zoo("John's Zoo")
 
