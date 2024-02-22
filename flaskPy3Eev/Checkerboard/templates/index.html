@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>checkerboard</title>
+    {# Link page with CSS file #}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <div>
+        {% for row in range (0,rows) %}
+        <div class="row">
+            {% for column in range (0,columns) %}
+            {% if (column % 2 == 0 and row % 2 == 0) or (column % 2 != 0 and row % 2 != 0) %}
+            <p style="background-color: {{color1}};"></p> {# (even,even) or (odd,odd) #}
+            {% else %}
+            <p style="background-color: {{color2}};"></p> {# (odd,even) or (even,odd) #}
+            {% endif %}
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+</body>
+
+</html>
