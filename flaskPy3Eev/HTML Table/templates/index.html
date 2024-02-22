@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello {{name}} </title> {# To access to name varaible we should use double curly brackets #}
+    <!-- linking a css style sheet -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/my_style.css') }}">
+    <!-- Include the Bootstrap CSS file -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+</head>
+
+<body>
+    <!-- https://getbootstrap.com/docs/5.3/content/tables/#overview -->
+    <!-- 
+        table -> table
+        table-info -> color
+        table-hover -> put hover 
+        table-bordered -> put border 
+        border-primary -> border color
+        table-dark -> dark color
+
+     -->
+    <table class="table table-info table-hover table-bordered border-primary caption-top">
+        <caption>List of users</caption>
+        <thead class="table-dark">
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Full Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Make a for loop in the users data list and in each row add user information -->
+            {% for user in users_data %}
+            <tr>
+                <td>{{user['first_name']}}</td>
+                <td>{{user['last_name']}}</td>
+                <td>{{user['first_name']}} {{user['last_name']}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+
+</html>
