@@ -22,9 +22,9 @@
                 <td>
                     <select id="location" name='location'>
                         <option selected>Palestine</option>
-                        <option value="1">USA</option>
-                        <option value="2">Germany</option>
-                        <option value="3">Greece</option>
+                        <option value="USA">USA</option>
+                        <option value="Germany">Germany</option>
+                        <option value="Greece">Greece</option>
                 </td>
             </tr>
 
@@ -33,9 +33,23 @@
                 <td>
                     <select id="language" name='language'>
                         <option selected>Python</option>
-                        <option value="1">JS</option>
-                        <option value="2">Java</option>
-                        <option value="3">C++</option>
+                        <option value="JS">JS</option>
+                        <option value="Java">Java</option>
+                        <option value="C++">C++</option>
+                </td>
+            </tr>
+            <tr>
+                <td><label>Gender:</label></td>
+            </tr>
+
+            <tr>
+                <td>
+                    <input type="radio" id="gender-male" name="gender" value="Male">
+                    <label for="gender-male">Male</label>
+                </td>
+                <td>
+                    <input type="radio" id="gender-female" name="gender" value="Female">
+                    <label for="gender-female">Female</label>
                 </td>
             </tr>
 
@@ -45,6 +59,13 @@
 
             <tr>
                 <td colspan="2"><textarea name="comment" id="comment" cols="40" rows="5"></textarea></td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <input type="checkbox" id="agreement" name="agree" value="agree">
+                    <label for="agreement">I agree to the form policy</label>
+                </td>
             </tr>
 
             <tr>

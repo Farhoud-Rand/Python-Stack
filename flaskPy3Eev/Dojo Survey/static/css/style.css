@@ -3,6 +3,7 @@ table {
     border: 2px solid black; /* Setting a border for all table elements */
     margin: 2% auto;
     width: 20%;
+    background-color: #edf6f8;
 }
   
 table th, table td {
@@ -21,7 +22,7 @@ table th, table td {
     margin: 0% 0% 1%;
 }
 
-table input {
+table input text{
     width: 96%;
 } 
 
