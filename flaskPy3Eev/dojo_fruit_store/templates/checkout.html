@@ -49,19 +49,19 @@
           <tbody>
             <tr>
               <td>Strawberry</td>
-              <td>{{strawberry}}</td>
+              <td>{{session['strawberry']}}</td>
             </tr>
             <tr>
               <td>Raspberry</td>
-              <td>{{raspberry}}</td>
+              <td>{{session['raspberry']}}</td>
             </tr>
             <tr>
               <td>Apple</td>
-              <td>{{apple}}</td>
+              <td>{{session['apple']}}</td>
             </tr>
             <tr>
               <td>Blackberry</td>
-              <td>{{blackberry}}</td>
+              <td>{{session['blackberry']}}</td>
             </tr>
           </tbody>
         </table>
@@ -69,24 +69,22 @@
         <h4 class="mb-3">Your Information</h4>
         <div class="row">
           <div class="col-md-6 mb-3">
-            First Name: {{first_name}}
+            First Name: {{session['first_name']}}
           </div>
           <div class="col-md-6 mb-3">
-            Last Name: {{last_name}}
+            Last Name: {{session['last_name']}}
           </div>
         </div>
 
         <div class="mb-3">
-          Your Student ID: {{student_id}}
+          Your Student ID: {{session['student_id']}}
         </div>
 
         <hr>
-        <!--
-        The int() function converts the values of each fruit quantity to integers.
-The | pipe character is used to perform filters or transformations in Jinja templates.
-The + operator is used to sum up the quantities of all fruits. -->
+        
         <div class="row">
-          <p>Charging {{first_name}} {{last_name}}: {{ strawberry|int + raspberry|int + apple|int + blackberry|int }}
+          <p>Charging {{session['first_name']}} {{session['last_name']}}:{{ session['strawberry'] +
+            session['raspberry'] + session['apple'] + session['blackberry']}}
           </p>
         </div>
 

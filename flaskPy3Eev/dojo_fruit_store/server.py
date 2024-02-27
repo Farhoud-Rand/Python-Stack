@@ -1,5 +1,6 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, session
 app = Flask(__name__)  
+app.secret_key = 'keep it secret, keep it safe' # set a secret key for security purposes
 
 @app.route('/')         
 def index():
@@ -7,14 +8,19 @@ def index():
 
 @app.route('/checkout', methods=['POST'])         
 def checkout():
-    strawberry = request.form.get('strawberry')
-    raspberry = request.form.get('raspberry')
-    apple = request.form.get('apple')
-    blackberry = request.form.get('blackberry')
-    first_name = request.form.get('first_name')
-    last_name = request.form.get('last_name')
-    student_id = request.form.get('student_id')
-    return render_template("checkout.html", strawberry = strawberry, raspberry = raspberry, apple = apple, blackberry = blackberry, first_name = first_name, last_name = last_name, student_id = student_id)
+    # Save data from form in the session and convert numbers to integers
+    session['strawberry'] = int(request.form['strawberry'])
+    session['raspberry'] = int(request.form['raspberry'])
+    session['apple'] = int(request.form['apple'])
+    session['blackberry'] = int(request.form['blackberry'])
+    session['first_name'] = request.form['first_name']
+    session['last_name'] = request.form['last_name']
+    session['student_id'] = request.form['student_id']
+    return redirect('/result') # Redirecte the post request !
+
+@app.route('/result')
+def result():
+    return render_template("checkout.html")
 
 @app.route('/fruits')         
 def fruits():
