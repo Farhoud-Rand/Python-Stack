@@ -18,6 +18,15 @@
     <a href="/add_two"><button id="add2_button" type="button" class="btn btn-danger">Add two visits</button></a>
     <a href="/reset"><button id="reset_button" type="button" class="btn btn-success">Reset</button></a>
 
+    <!-- Add form to make the user enter the number of increment -->
+    <form action="/increment_by" method="post">
+        <div class="mb-3">
+            <label for="number">Increment visit number by:</label>
+            <input type="text" id="number" name="increment_by_number">
+        </div>
+        <button type="submit" class="btn btn-primary">Increment</button>
+    </form>
+
 </body>
 
 </html>

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, session
+from flask import Flask, render_template, redirect, session, request
 app = Flask(__name__)
 app.secret_key = "my_key"
 
@@ -36,6 +36,17 @@ def reset():
 @app.route('/destroy_session')
 def clear_session():
     session.clear() # clears all keys
+    return redirect("/")
+
+# Increment the number of visits by spcific number
+@app.route('/increment_by', methods=['POST'])
+def increment_by():
+    number = int(request.form['increment_by_number'])
+    if 'visits' not in session:
+        session['visits'] = number - 1 # Inintialize the value to be 1
+    else:
+        # Increment 'visits' if it exists
+        session['visits'] += number - 1
     return redirect("/")
 
 if __name__ == "__main__":
