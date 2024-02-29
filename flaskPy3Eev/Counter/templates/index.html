@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+    <title>Counter</title>
+</head>
+
+<body class="custom-body">
+    <h1>Counter</h1>
+    <h3 class="header3"><span id="number_of_visits">{{session['visits']}}</span> times.</h3>
+
+    <!-- Note: we cannot connect JS code with python code (code for spcific route) -->
+    <!-- To connect them I put the button on <a> tag to connect href with spcific route at backend -->
+    <a href="/add_two"><button id="add2_button" type="button" class="btn btn-danger">Add two visits</button></a>
+    <a href="/reset"><button id="reset_button" type="button" class="btn btn-success">Reset</button></a>
+
+</body>
+
+</html>
