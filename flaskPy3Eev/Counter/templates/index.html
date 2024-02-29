@@ -10,11 +10,17 @@
 </head>
 
 <body class="custom-body">
-    <h1>Counter</h1>
-    <h3 class="header3"><span id="number_of_visits">{{session['visits']}}</span> times.</h3>
+    <!-- Counter -->
+    <h2 class="p-3 mb-2 bg-info text-primary-emphasis">Counter</h2>
+    <h4 class="header3"><span id="number_of_visits">{{session['visits']}}</span> times.</h4>
 
+    <!-- Actual visit -->
+    <h2 class="p-3 mb-2 bg-info text-primary-emphasis">Actual number of visits</h2>
+    <h4 class="header3"><span id="actual_number_of_visits">{{session['actual_visits']}}</span> times.</h4>
+
+    <hr class="border border-black border-2 opacity-50">
     <!-- Note: we cannot connect JS code with python code (code for spcific route) -->
-    <!-- To connect them I put the button on <a> tag to connect href with spcific route at backend -->
+    <!-- To connect them I put the button on <a> tag to connect href with spcific route at backend side -->
     <a href="/add_two"><button id="add2_button" type="button" class="btn btn-danger">Add two visits</button></a>
     <a href="/reset"><button id="reset_button" type="button" class="btn btn-success">Reset</button></a>
 
@@ -26,7 +32,6 @@
         </div>
         <button type="submit" class="btn btn-primary">Increment</button>
     </form>
-
 </body>
 
 </html>

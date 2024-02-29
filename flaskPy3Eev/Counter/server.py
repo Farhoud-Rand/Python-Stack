@@ -2,35 +2,30 @@ from flask import Flask, render_template, redirect, session, request
 app = Flask(__name__)
 app.secret_key = "my_key"
 
-# Our index route will handle rendering our form
+# Our index route will handle rendering our refeashing the page
 @app.route('/')
 def index():
-    # Check if 'visits' key exists in session
-    if 'visits' not in session:
-        session['visits'] = 1 # Inintialize the value to be 1
+    # Check if 'actual_visits' key exists in session
+    if 'actual_visits'  not in session and 'visits'  not in session:
+        session['actual_visits'] = 1 # Inintialize the value to be 1
+        session['visits'] = 1
     else:
-        # Increment 'visits' if it exists
+        # Increment 'actual_visits' if it exists
+        session['actual_visits'] += 1
         session['visits'] += 1
     return render_template("index.html")
 
 # Add two visits
 @app.route('/add_two')
 def add2():
-    # Note: since I will redirect the root route so I will aready incremant visit by 1 
-    # Check if 'visits' key exists in session
-    if 'visits' not in session:
-        session['visits'] = 1 # Inintialize the value to be 1
-    else:
-        # Increment 'visits' if it exists
-        session['visits'] += 1
-    return redirect("/")
+    session['visits'] += 2 # Increment 'visits' by 2
+    return redirect("/counter")
 
-# Add two visits
+# Reset visits
 @app.route('/reset')
 def reset():
-    # Note: since I will redirect the root route so I will aready incremant visit by 1 
-    session['visits'] = 0 # Inintialize the value to be 0
-    return redirect("/")
+    session['visits'] = 1 # Make the value to be 1
+    return redirect("/counter")
 
 # Clear the session 
 @app.route('/destroy_session')
@@ -41,13 +36,17 @@ def clear_session():
 # Increment the number of visits by spcific number
 @app.route('/increment_by', methods=['POST'])
 def increment_by():
-    number = int(request.form['increment_by_number'])
-    if 'visits' not in session:
-        session['visits'] = number - 1 # Inintialize the value to be 1
+    if (request.form['increment_by_number'] != ''):
+        number = int(request.form['increment_by_number']) # Convert the number to integer first
     else:
-        # Increment 'visits' if it exists
-        session['visits'] += number - 1
-    return redirect("/")
+        number = 0
+    session['visits'] += number # Add the number
+    return redirect("/counter")
+
+# Redirect route for all routes that increment the counter not the actual number of visits
+@app.route('/counter')
+def display_page():
+    return render_template("index.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
