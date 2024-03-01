@@ -1,10 +1,21 @@
-.custom-body {
+.custom-body-1, .custom-body-2, .custom-body-3 {
+    background-color: #e1f7ff;
+    border: 3px solid black;
+    border-radius: 27px;
+    padding: 3%;
+    width: 50%;
     text-align: center;
     margin: 5% auto;
-    width: 50%;
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
+.custom-body-2 {
+    background-color: #ffedea;
+}
+
+.custom-body-3 {
+    background-color: #f3fdeb;
+}
 .header4, .mb-3 {
     margin: 1rem;
 }
@@ -18,6 +29,11 @@
     align-items: center;
     border: 3px solid black;
     margin: 0 auto;
-    padding: 10%;
+    padding: 8%;
+    border-radius: 20px;
 }
 
+.btn {
+    background-color: #187498;
+    color: white;
+}

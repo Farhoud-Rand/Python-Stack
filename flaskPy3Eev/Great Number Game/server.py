@@ -10,6 +10,8 @@ def index():
     # Check if 'number' key exists in session
     if 'number' not in session :
         session['number'] = random.randint(1, 100) 	# random number between 1-100
+    if 'tries' not in session :
+        session['tries'] = 0
     print(session)
     print("*"*80)
     sys.stdout.flush() # To ensure that the print statements are immediately visible in the terminal while the Flask server is running, you can explicitly flush the output buffer after each print statement using sys.stdout.flush().
@@ -18,13 +20,18 @@ def index():
 # Increment the number of visits by spcific number
 @app.route('/guess_from_user', methods=['POST'])
 def check_number():
+    session['tries'] += 1
     user_number = int(request.form['user_number']) # Convert the number to integer first
-    if (user_number == session['number']):
+    if (user_number == session['number']):                             # Case 1: Success
         return render_template("success.html")
-    elif (user_number > session['number']):
-        session['result'] = 'high'
-    else:
-        session['result'] = 'low'
+    elif (session['number']- 10 <= user_number < session['number'] ):  # Case 2: too close but lower than number by 10 or less
+        session['result'] = 'Low'
+    elif (session['number']  < user_number <= session['number'] + 10): # Case 3: too close but higher than number by 10 or less
+        session['result'] = 'High'
+    elif (user_number > session['number']):                            # Case 4: too far from number from above 
+        session['result'] = 'Too high !'
+    else:                                                              # Case 5: too far from number from below
+        session['result'] = 'Too low !'
     return render_template("fail.html")        
         
 

@@ -9,15 +9,17 @@
     <title>Counter</title>
 </head>
 
-<body class="custom-body">
-
-    <h1>Welcome to the Great Number Game!</h1>
-    <h4 class="header4">I am thinking of a number between 1 and 100</h4>
-    <h4 class="header4">Take a guess!</h4>
-    <div class="box mb-2 bg-success text-white">
-        <h4>{{session['number']}} was the number! </h4>
-        <a href="/destroy_session"><button type="button" class="btn btn-light btn-lg mb-3">Play
-                again!</button></a>
+<body>
+    <div class="custom-body-3">
+        <h1>Welcome to the Great Number Game!</h1>
+        <h4 class="header4">I am thinking of a number between 1 and 100</h4>
+        <h4 class="header4">Take a guess!</h4>
+        <div class="box mb-2 bg-success text-white">
+            <h4>{{session['number']}} was the number! </h4>
+            <a href="/destroy_session"><button type="button" class="btn btn-light btn-lg mb-3">Play
+                    again!</button></a>
+        </div>
+        <h4 class="header4">Number of tries: {{session['tries']}}</h4>
     </div>
 </body>
 
