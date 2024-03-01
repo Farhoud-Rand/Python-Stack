@@ -10,12 +10,11 @@
 </head>
 
 <body>
-    <div class="custom-body-3">
+    <div class="custom-body-2">
         <h1>Welcome to the Great Number Game!</h1>
-        <h4 class="header4">Congrats! you win :D</h4>
-        <h4 class="header4">Number of tries: {{session['tries']}}</h4>
-        <div class="box mb-2 bg-success text-white">
-            <h4>{{session['number']}} was the number! </h4>
+        <div class="box mb-2 bg-danger text-white">
+            <h4>You lose T-T</h4>
+            <h4>The number was: {{session['number']}}</h4>
             <a href="/destroy_session"><button type="button" class="btn btn-light btn-lg mb-3">Play
                     again!</button></a>
         </div>

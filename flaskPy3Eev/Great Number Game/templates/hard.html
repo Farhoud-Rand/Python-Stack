@@ -10,22 +10,16 @@
 </head>
 
 <body>
-    <div class="custom-body-2">
+    <div class="custom-body-1">
         <h1>Welcome to the Great Number Game!</h1>
         <h4 class="header4">I am thinking of a number between 1 and 100</h4>
         <h4 class="header4">Take a guess!</h4>
-        <div class="box mb-2 bg-danger text-white">
-            <h4>{{session['result']}}</h4>
-        </div>
-        <!-- Check the limit (hard game) in order to tell user the left number of tries -->
-        {% if 'limit' in session:%}
         <h4 class="header4">You have {{session['limit']}} left !!</h4>
-        {% endif %}
         <form action="/guess_from_user" method="post">
             <div class="mb-3">
                 <input type="text" id="number" name="user_number" required>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-info">Submit</button>
         </form>
     </div>
 </body>

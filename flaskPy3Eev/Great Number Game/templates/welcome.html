@@ -10,16 +10,15 @@
 </head>
 
 <body>
-    <div class="custom-body-3">
+    <div class="custom-body-0">
         <h1>Welcome to the Great Number Game!</h1>
-        <h4 class="header4">Congrats! you win :D</h4>
-        <h4 class="header4">Number of tries: {{session['tries']}}</h4>
-        <div class="box mb-2 bg-success text-white">
-            <h4>{{session['number']}} was the number! </h4>
-            <a href="/destroy_session"><button type="button" class="btn btn-light btn-lg mb-3">Play
-                    again!</button></a>
-        </div>
-    </div>
+        <h3>There is to difficulty levels:</h3>
+        <h4 class="text-blue">Easy</h4>
+        <h5>Unlimited guessing for the number</h5>
+        <h4 class="text-info">Hard</h4>
+        <h5>Only 5 times allowed to guess the number !</h5>
+        <a href="/easy"><button type="button" class="btn">Easy</button></a>
+        <a href="/hard"><button type="button" class="btn btn-info">Hard</button></a>
 </body>
 
 </html>
