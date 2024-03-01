@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+    <title>Counter</title>
+</head>
+
+<body class="custom-body">
+
+    <h1>Welcome to the Great Number Game!</h1>
+    <h4 class="header4">I am thinking of a number between 1 and 100</h4>
+    <h4 class="header4">Take a guess!</h4>
+    <div class="box mb-2 bg-success text-white">
+        <h4>{{session['number']}} was the number! </h4>
+        <a href="/destroy_session"><button type="button" class="btn btn-light btn-lg mb-3">Play
+                again!</button></a>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,23 @@
+.custom-body {
+    text-align: center;
+    margin: 5% auto;
+    width: 50%;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.header4, .mb-3 {
+    margin: 1rem;
+}
+
+.box {
+    width: 35%;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 3px solid black;
+    margin: 0 auto;
+    padding: 10%;
+}
+
