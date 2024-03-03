@@ -103,6 +103,9 @@
         {% endfor %}
     </div>
 
+    <!-- Reset button -->
+    <a href="/destroy_session"><button class="btn btn-info m-3 px-16">Reset</button></a>
+
     <!-- Connect index.html file with external javaScript file -->
     <script src="{{ url_for('static', filename = 'js/my_script.js') }}"></script>
 </body>

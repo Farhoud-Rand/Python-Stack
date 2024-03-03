@@ -54,7 +54,13 @@ def process_money():
     else:
         output = f"Entered a casino and lost {abs(random_number)} golds... Ouch.. ({formatted_time})" 
     session['activities'].insert(0,output) # Add the new activity (note use insert function instead of append in order to put the newest activity in the top)
-    return redirect("/") # Redirect the root route 
+    return redirect(url_for("index"))       # Redirect the root route 
+
+# Clear the session 
+@app.route('/destroy_session')
+def clear_session():
+    session.clear() # clears all keys
+    return redirect("/")
 
 if __name__ == "__main__":
     app.run(debug=True)
