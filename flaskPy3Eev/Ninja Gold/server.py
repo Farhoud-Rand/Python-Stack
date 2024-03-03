@@ -23,21 +23,10 @@ def index():
 # * redirect the root route 
 @app.route('/process_money', methods=['post'])
 def process_money():
-    form = request.form['form'] # Get the form to select the min and max values
-    min = 0
-    max = 0
-    if (form == 'farm'):
-        min = 10
-        max = 20
-    elif (form == 'cave'):
-        min = 5
-        max = 10
-    elif (form == 'house'):
-        min = 2
-        max = 5
-    elif (form == 'casino'):
-        min = -50
-        max = 50
+    form = request.form['form']     # Get the form to add it in the activity
+    min = int(request.form['min'])  # Get the min value
+    max = int(request.form['max'])  # Get the max value
+
     random_number = random.randint(min, max) # Choose a random number
     print("_"*100)
     print(random_number)
@@ -54,7 +43,7 @@ def process_money():
     else:
         output = f"Entered a casino and lost {abs(random_number)} golds... Ouch.. ({formatted_time})" 
     session['activities'].insert(0,output) # Add the new activity (note use insert function instead of append in order to put the newest activity in the top)
-    return redirect(url_for("index"))       # Redirect the root route 
+    return redirect(url_for("index"))      # Redirect the root route 
 
 # Clear the session 
 @app.route('/destroy_session')
@@ -62,5 +51,18 @@ def clear_session():
     session.clear() # clears all keys
     return redirect("/")
 
+# Route to render the small window
+@app.route('/small_window')
+def small_window():
+    return render_template('result.html')
+
+# Route to handle closing the small window
+@app.route('/close_small_window')
+def close_small_window():
+    # Redirect back to the main page
+    return redirect(url_for('index'))
+
 if __name__ == "__main__":
     app.run(debug=True)
+
+
