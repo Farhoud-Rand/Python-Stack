@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+    <title>Counter</title>
+</head>
+
+<body class="custom-body">
+    <!-- First Flex box to show total golds -->
+    <div class="my_container d-flex p-2 flex-md-row align-items-center">
+        <h5 class="flex-item mx-2">Your Gold: </h5>
+        <h5 class="flex-item mx-2 result">{{session['total_golds']}}</h5>
+        <!-- We will have the total number in session -->
+    </div>
+
+    <!-- Second flex box to show places -->
+    <div class="my_container_1 d-flex flex-md-row align-items-center justify-content-between">
+
+        <!-- Each place will be in a separate div in order to contain a video and form for this place -->
+        <div class="video-background">
+            <!-- Farm Video -->
+            <video class="video">
+                <source src="static/video/farm.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+
+            <!-- Farm Form -->
+            <form action="/process_money" method="post">
+                <h4 class="my_magin">Farm</h4>
+                <h6 class="my_magin">(earns 10-20 golds)</h6>
+                <!-- Add hidden input to indicate which form the user submit -->
+                <input type="hidden" name="form" value="farm">
+                <button type="submit" class="btn btn-info m-3">Find Gold!</button>
+            </form>
+        </div>
+
+        <div class="video-background">
+            <!-- Cave video -->
+            <video class="video">
+                <source src="static/video/cave.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+
+            <!-- Cave Form -->
+            <form action="/process_money" method="post">
+                <h4 class="my_magin">Cave</h4>
+                <h6 class="my_magin">(earns 5-10 golds)</h6>
+                <!-- Add hidden input to indicate which form the user submit -->
+                <input type="hidden" name="form" value="cave">
+                <button type="submit" class="btn btn-info m-3">Find Gold!</button>
+            </form>
+        </div>
+
+        <div class="video-background">
+            <!-- House video -->
+            <video class="video">
+                <source src="static/video/house.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+
+            <!-- House Form -->
+            <form action="/process_money" method="post">
+                <h4 class="my_magin">House</h4>
+                <h6 class="my_magin">(earns 2-5 golds)</h6>
+                <!-- Add hidden input to indicate which form the user submit -->
+                <input type="hidden" name="form" value="house">
+                <button type="submit" class="btn btn-info m-3">Find Gold!</button>
+            </form>
+        </div>
+
+        <div class="video-background">
+            <!-- Casino video -->
+            <video muted class="video">
+                <source src="static/video/casino.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+
+            <!-- Casino Form -->
+            <form action="/process_money" method="post">
+                <h4 class="my_magin">Casino</h4>
+                <h6 class="my_magin">(earns/takes 0-50 golds)</h6>
+                <!-- Add hidden input to indicate which form the user submit -->
+                <input type="hidden" name="form" value="casino">
+                <button type="submit" class="btn btn-info m-3">Find Gold!</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- last part is the Activities for each form submittion -->
+    <h5 class="m-4">Activities:</h5>
+    <div id="activities">
+        {% for santance in session['activities']: %} <!-- I save all activities in list in session -->
+        {% if 'Earned' in santance %}
+        <!-- To select the santance color I will check if the word 'earned' is in it or not -->
+        <p class="green">{{santance}}</p>
+        {% else %}
+        <p class="red">{{santance}}</p>
+        {% endif %}
+        {% endfor %}
+    </div>
+
+    <!-- Connect index.html file with external javaScript file -->
+    <script src="{{ url_for('static', filename = 'js/my_script.js') }}"></script>
+</body>
+
+</html>
