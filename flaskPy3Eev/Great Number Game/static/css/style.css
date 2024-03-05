@@ -46,3 +46,11 @@
 .text-blue {
     color: #187498;
 }
+
+.winner_name {
+    text-align: center;
+    padding: 3%;
+    width: 50%;
+    margin: 0% auto;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}

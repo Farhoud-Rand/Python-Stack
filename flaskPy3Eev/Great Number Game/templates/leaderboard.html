@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/leaderboard_style.css') }}">
+    <title>Leaderboard</title>
+</head>
+
+<body>
+    <h1>{{session['winners']}}</h1>
+    {% for i in session['winners'] %}
+    <div class="winner_container">
+        <div class="rank">
+            <h1>1</h1>
+        </div>
+        <h1>{{ i }}</h1>
+        <div class="tries_container">
+            <h1>{{ i }}</h1>
+        </div>
+    </div> 
+    <h1>hhh</h1>
+    {% endfor %}
+</body>
+
+</html>

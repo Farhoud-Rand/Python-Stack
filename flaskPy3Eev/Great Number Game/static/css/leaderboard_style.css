@@ -1,0 +1,38 @@
+.custom-body {
+    background-color: #e6f5fb;
+    border: 3px solid black;
+    border-radius: 27px;
+    padding: 3%;
+    width: 50%;
+    text-align: center;
+    margin: 5% auto;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.winner_container {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid black;
+    border-radius: 27px;
+    background-color: rgb(12, 88, 88);
+    color: white;
+
+}
+
+.rank {
+    border: 1px solid yellowgreen;
+    background-color: yellowgreen;
+    border-radius: 50%;
+    color: azure;
+
+}
+
+
+
+.tries_container {
+    width: 20%;
+    border: 1px solid burlywood;
+    border-radius: 27px;
+}
