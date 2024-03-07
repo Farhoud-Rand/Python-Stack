@@ -19,7 +19,7 @@
             <a href="/destroy_session"><button type="button" class="btn btn-light btn-lg mb-3">Play
                     again!</button></a>
         </div>
-        {% if 'winners' in session %}
+        {% if 'winners' in session and 'type' in session%}
         <h4>Do you want to enter your name ?</h4>
         <div class="d-flex winner_name mb-2 justify-content-between">
             <form action="/leaderboard" method="post">

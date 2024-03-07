@@ -26,7 +26,8 @@ def easy():
 def hard():
     if 'limit' not in session :                     # Check if 'limit' key exists in session
         session['limit'] = 5
-        session['winners'] = [{'name':'rand','tries':4}]
+        session['winners'] = [{'name':'rand','tries':1}]
+        session['type'] = 'hard'
     print(session)
     print("*"*80)
     sys.stdout.flush() # To ensure that the print statements are immediately visible in the terminal while the Flask server is running, you can explicitly flush the output buffer after each print statement using sys.stdout.flush().
@@ -72,6 +73,7 @@ def clear_session():
 # Leaderbord 
 @app.route('/leaderboard', methods=['post'])
 def leaderbord():
+    winners = session['winners']
     name = request.form['winner_name']
     print(name)
     print("*"*80)
@@ -80,10 +82,13 @@ def leaderbord():
         print("ADD new one")
         sys.stdout.flush()
         win_record = {'name':name,'tries':session['tries']}
-        session['winners'].append(win_record)
+        
+        winners.append(win_record)
+        session['winners'] = winners
+        # session['winners'] += (win_record)
         print ("NEW LIST :")
         print(session['winners'])
-        # sys.stdout.flush()
+        sys.stdout.flush()
     else: 
         pass
         # print("Update if need")
@@ -93,12 +98,12 @@ def leaderbord():
         # print ("Updated LIST :")
         # print(session['winners'])
         # sys.stdout.flush()
-    return redirect("/show_leaderboard")
+    return redirect("/show_leaderboard" )
     
 # Show Leaderbord 
 @app.route('/show_leaderboard')
 def show_leaderbord():
-    return render_template("leaderboard.html")
+    return render_template("leaderboard.html", winners = session['winners'])
 
 if __name__ == "__main__":
     app.run(debug=True)
