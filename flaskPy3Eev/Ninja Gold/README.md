@@ -28,7 +28,7 @@ To run this game locally:
 
 A simple live demo of the game:
 
-![demo](https://github.com/Farhoud-Rand/Python-Stack/assets/111997004/fbcf01ab-9d7e-4308-bafb-b154edbf8df2)
+![demo](https://github.com/Farhoud-Rand/Python-Stack/assets/111997004/e396fd3c-f1a5-4812-8acb-83d8c966737a)
 
 ## Contributing
 
