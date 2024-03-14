@@ -122,6 +122,24 @@
 
     <!-- Reset button -->
     <a href="/destroy_session"><button class="btn btn-info m-3 px-16">Reset</button></a>
+    <!-- Check if show_alert is true -->
+    {% if show_alert %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <script>
+        // Show the sweet alert with message
+        swal({
+            title: "Result",
+            text: "{{ message }}",
+            icon: "{{ result }}",
+            button: "OK",
+        }).then((value) => {
+            // After the sweet alert is closed by the user, you can program any action here
+            // For example, redirecting to another page
+            window.location.href = "/destroy_session"; // Change "/some_page" to the URL you want to redirect to
+        });
+    </script>
+    {% endif %}
+
     <!-- Connect index.html file with external javaScript file -->
     <script src="{% static 'js/my_script.js' %}"></script>
 </body>
