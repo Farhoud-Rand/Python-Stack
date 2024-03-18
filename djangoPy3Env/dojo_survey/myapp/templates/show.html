@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <title>Show page</title>
+</head>
+
+<body>
+    <form action='/'>
+        <table>
+            <tr colspan="2">
+                <td>
+                    <h3><u>Submitted Info</u></h3>
+                </td>
+            </tr>
+            <tr>
+                <td><b>Name:</b></label></td>
+                <td>{{ name }}</td>
+            </tr>
+            <tr>
+                <td><b>Dojo Location:</b></label></td>
+                <td>{{ location }}</td>
+            </tr>
+            <tr>
+                <td><b>Favorite language:</b></label></td>
+                <td>{{ language }}</td>
+            </tr>
+            <tr>
+                <td><b>Gender:</b></td>
+                <td>{{ gender }}</td>
+            </tr>
+            <tr>
+                <td><b>Comment:</b></label></td>
+                <td>{{ comment }}</td>
+            </tr>
+            <tr>
+                <td><b>Agreement:</b></td>
+                <td>{{ agreement }}</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td class="right"><button type="submit">Go Back</button></td>
+            </tr>
+        </table>
+    </form>
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/leaderboard_style.css' %}">
+    <title>Leaderboard</title>
+</head>
+
+<body class="custom-body">
+    <h1 id="title">Great Number Game Winners</h1>
+    <div class="winner_container">
+        <h2>Rank__Winner Name__Number of tries</h2>
+    </div>
+    {% for i in winners %}
+    <div class="winner_container">
+        <div class="rank">
+            <h1>{{ forloop.counter }}</h1> <!-- Using forloop.counter for index -->
+        </div>
+        <h1>{{ i.name }}</h1>
+        <div class="tries_container">
+            <h1>{{ i.tries }}</h1>
+        </div>
+    </div>
+    {% endfor %}
+    <a href="/back_home"><button class="btn">Back</button></a>
+</body>
+
+</html>

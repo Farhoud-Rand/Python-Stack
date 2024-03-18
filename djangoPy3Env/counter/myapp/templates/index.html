@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
+    <title>Counter</title>
+</head>
+
+<body class="custom-body">
+    <!-- Counter -->
+    <h2 class="p-3 mb-2 bg-info text-primary-emphasis">Counter</h2>
+    <h4 class="header3"><span id="number_of_visits">{{visits}}</span> times.</h4>
+
+    <!-- Actual visit -->
+    <h2 class="p-3 mb-2 bg-info text-primary-emphasis">Actual number of visits</h2>
+    <h4 class="header3"><span id="actual_number_of_visits">{{actual_visits}}</span> times.</h4>
+
+    <hr class="border border-black border-2 opacity-50">
+    <!-- Note: we cannot connect JS code with python code (code for spcific route) -->
+    <!-- To connect them I put the button on <a> tag to connect href with spcific route at backend side -->
+    <a href="/add_two"><button id="add2_button" type="button" class="btn btn-danger">Add two visits</button></a>
+    <a href="/reset"><button id="reset_button" type="button" class="btn btn-success">Reset</button></a>
+
+    <!-- Add form to make the user enter the number of increment -->
+    <form action="/increment_by" method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="number">Increment visit number by:</label>
+            <input type="text" id="number" name="increment_by_number">
+        </div>
+        <button type="submit" class="btn btn-primary">Increment</button>
+    </form>
+</body>
+
+</html>

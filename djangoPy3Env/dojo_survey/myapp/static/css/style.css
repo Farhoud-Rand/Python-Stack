@@ -1,0 +1,32 @@
+
+table {
+    border: 2px solid black; /* Setting a border for all table elements */
+    margin: 2% auto;
+    width: 20%;
+    background-color: #edf6f8;
+}
+  
+table th, table td {
+    padding: 8px; 
+}
+  
+.right {
+    text-align: right;
+}
+
+.right button {
+    background-color: #76A5AF;
+    color: white;
+    border-radius: 3px;
+    box-shadow: 2px 2px black;
+    margin: 0% 0% 1%;
+}
+
+table input text{
+    width: 96%;
+} 
+
+table select {
+    width: 100%;
+}
+
