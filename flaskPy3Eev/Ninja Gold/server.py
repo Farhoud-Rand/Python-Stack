@@ -1,5 +1,4 @@
 import random
-import sys
 from datetime import datetime
 from flask import Flask, render_template, redirect, session, request, url_for
 
@@ -28,10 +27,6 @@ def process_money():
     max = int(request.form['max'])  # Get the max value
 
     random_number = random.randint(min, max) # Choose a random number
-    # print("_"*100)
-    # print(random_number)
-    # print("_"*100)
-    # sys.stdout.flush()
     session['total_golds'] += random_number # Calculte the total number of golds
     
     # Get current date and time
