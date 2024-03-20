@@ -28,10 +28,10 @@ def process_money():
     max = int(request.form['max'])  # Get the max value
 
     random_number = random.randint(min, max) # Choose a random number
-    print("_"*100)
-    print(random_number)
-    print("_"*100)
-    sys.stdout.flush()
+    # print("_"*100)
+    # print(random_number)
+    # print("_"*100)
+    # sys.stdout.flush()
     session['total_golds'] += random_number # Calculte the total number of golds
     
     # Get current date and time
@@ -51,18 +51,5 @@ def clear_session():
     session.clear() # clears all keys
     return redirect("/")
 
-# Route to render the small window
-@app.route('/small_window')
-def small_window():
-    return render_template('result.html')
-
-# Route to handle closing the small window
-@app.route('/close_small_window')
-def close_small_window():
-    # Redirect back to the main page
-    return redirect(url_for('index'))
-
 if __name__ == "__main__":
     app.run(debug=True)
-
-
