@@ -24,9 +24,10 @@ def easy():
 # Hard game
 @app.route('/hard')
 def hard():
+    if 'winners' not in session:
+        session['winners'] = []
     if 'limit' not in session :                     # Check if 'limit' key exists in session
         session['limit'] = 5
-        session['winners'] = [{'name':'rand','tries':1}]
         session['type'] = 'hard'
     print(session)
     print("*"*80)
@@ -67,7 +68,12 @@ def show():
 # Clear the session 
 @app.route('/destroy_session')
 def clear_session():
-    session.clear() # clears all keys
+    item_to_keep = session.get('winners', None)
+    # Clear all data from the session
+    session.clear()
+    # Set the retained item back into the session
+    if item_to_keep is not None:
+        request.session['winners'] = item_to_keep
     return redirect("/")
 
 # Leaderbord 
@@ -82,28 +88,36 @@ def leaderbord():
         print("ADD new one")
         sys.stdout.flush()
         win_record = {'name':name,'tries':session['tries']}
-        
         winners.append(win_record)
         session['winners'] = winners
-        # session['winners'] += (win_record)
         print ("NEW LIST :")
         print(session['winners'])
         sys.stdout.flush()
     else: 
-        pass
-        # print("Update if need")
-        # sys.stdout.flush()
-        # if session['winners'][name] > session['tries']:
-        #     session['winners'][name] =  session['tries']
-        # print ("Updated LIST :")
-        # print(session['winners'])
-        # sys.stdout.flush()
+        print("Update if need")
+        sys.stdout.flush()
+        if session['winners'][name] > session['tries']:
+            session['winners'][name] =  session['tries']
+        print ("Updated LIST :")
+        print(session['winners'])
+        sys.stdout.flush()
     return redirect("/show_leaderboard" )
     
 # Show Leaderbord 
 @app.route('/show_leaderboard')
 def show_leaderbord():
+    # Sort the winners list based on the number of tries
+    winners = session['winners']
+    winners.sort(key=lambda x: x['tries'])
     return render_template("leaderboard.html", winners = session['winners'])
+
+# Go back to home
+@app.route('/back_home')
+def back_home():
+    del session['limit']
+    del session['number']
+    del session['tries']
+    return redirect('/')
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -8,8 +8,11 @@
     <title>Leaderboard</title>
 </head>
 
-<body>
-
+<body class="custom-body">
+    <h1 id="title">Great Number Game Winners</h1>
+    <div class="winner_container">
+        <h2>Rank__Winner Name__Number of tries</h2>
+    </div>
     {% set index = 1 %}
     {% for i in winners %}
     <div class="winner_container">
@@ -22,7 +25,7 @@
         </div>
     </div>
     {% endfor %}
-    <!-- <a href="/back_home"><button class="btn btn-primary">Back</button></a> -->
+    <a href="/back_home"><button class="btn">Back</button></a>
 </body>
 
 </html>
