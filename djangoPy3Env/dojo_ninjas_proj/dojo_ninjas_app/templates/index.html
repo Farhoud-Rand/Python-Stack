@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment: Dojos & Ninjas with Template</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <!-- Add New Dojo Form -->
+                <h2>Add a Dojo</h2>
+                <form action="/add_dojo" method="post" class="needs-validation" novalidate>
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="dojo_name">Dojo Name</label>
+                        <input type="text" class="form-control" id="dojo_name" name="dojo_name"
+                            placeholder="Enter Dojo Name" required>
+                        <div class="invalid-feedback">
+                            Please provide a dojo name.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="dojo_city">City</label>
+                        <input type="text" class="form-control" id="dojo_city" name="dojo_city" placeholder="Enter City"
+                            required>
+                        <div class="invalid-feedback">
+                            Please provide a city name.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="dojo_state">State</label>
+                        <input type="text" class="form-control" id="dojo_state" name="dojo_state"
+                            placeholder="Enter State" required>
+                        <div class="invalid-feedback">
+                            Please provide a state name.
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-info">Add Dojo</button>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <!-- Add New Ninja Form -->
+                <h2>Add a Ninja</h2>
+                <form action="/add_ninja" method="post" class="needs-validation" novalidate>
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="ninja_dojo">Dojo</label>
+                        <select class="form-control" id="ninja_dojo" name="dojo" required>
+                            {% for dojo in dojos %}
+                            <option value="{{ dojo.id }}">{{ dojo.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="ninja_first_name">First Name</label>
+                        <input type="text" class="form-control" id="ninja_first_name" name="ninja_first_name"
+                            placeholder="Enter First Name" required>
+                        <div class="invalid-feedback">
+                            Please provide a first name.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="ninja_last_name">Last Name</label>
+                        <input type="text" class="form-control" id="ninja_last_name" name="ninja_last_name"
+                            placeholder="Enter Last Name" required>
+                        <div class="invalid-feedback">
+                            Please provide a last name.
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-info">Add Ninja</button>
+                </form>
+            </div>
+        </div>
+        <hr>
+        <!-- Display all dojos and ninjas -->
+        <h1 class="text-center">All the Dojos</h1>
+        <div id="list_dojos">
+            {% for dojo in dojos %}
+            <div class="row">
+                <h3 class="col-md-10">Ninjas at the {{ dojo.name }} - {{ dojo.ninjas.all|length }}</h3>
+                <a href="delete/{{dojo.id}}" class="btn btn-info col-md-2">Delete</a>
+            </div>
+            <ul>
+                {% for ninja in dojo.ninjas.all %}
+                <li>{{ ninja.first_name }} {{ ninja.last_name }}</li>
+                {% endfor %}
+            </ul>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+
+</html>

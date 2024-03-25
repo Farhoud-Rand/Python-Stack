@@ -1,0 +1,132 @@
+* Create the Dojo class model
+    class Dojo(models.Model):
+        name = models.CharField(max_length=255)
+        city = models.CharField(max_length=255)
+        state = models.CharField(max_length=2)
+_________________________________________________________________________________________________________
+* Create the Ninja class model
+    class Ninja(models.Model):
+        dojo_id = models.ForeignKey(Dojo, related_name = 'ninjas', on_delete = 'CASCADE') 
+        first_name = models.CharField(max_length=255)
+        last_name = models.CharField(max_length=255)
+_________________________________________________________________________________________________________
+* Create and run the migration files to create the tables in your database
+> py manage.py makemigrations
+    Migrations for 'dojo_ninjas_app':
+      dojo_ninjas_app\migrations\0001_initial.py
+        - Create model Dojo
+        - Create model Ninja
+
+> py manage.py migrate
+    Operations to perform:
+      Apply all migrations: admin, auth, contenttypes, dojo_ninjas_app, sessions
+    Running migrations:
+      Applying contenttypes.0001_initial... OK
+      Applying auth.0001_initial... OK
+      Applying admin.0001_initial... OK
+      Applying admin.0002_logentry_remove_auto_add... OK
+      Applying admin.0003_logentry_add_action_flag_choices... OK
+      Applying contenttypes.0002_remove_content_type_name... OK
+      Applying auth.0002_alter_permission_name_max_length... OK
+      Applying auth.0003_alter_user_email_max_length... OK
+      Applying auth.0004_alter_user_username_opts... OK
+      Applying auth.0005_alter_user_last_login_null... OK
+      Applying auth.0006_require_contenttypes_0002... OK
+      Applying auth.0007_alter_validators_add_error_messages... OK
+      Applying auth.0008_alter_user_username_max_length... OK
+      Applying auth.0009_alter_user_last_name_max_length... OK
+      Applying auth.0010_alter_group_name_max_length... OK
+      Applying auth.0011_update_proxy_permissions... OK
+      Applying auth.0012_alter_user_first_name_max_length... OK
+      Applying dojo_ninjas_app.0001_initial... OK
+      Applying sessions.0001_initial... OK
+_________________________________________________________________________________________________________
+* Run the shell and import your models
+>py manage.py shell
+Python 3.12.2 (tags/v3.12.2:6abddd9, Feb  6 2024, 21:26:36) [MSC v.1937 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+    >>> from dojo_ninjas_app.models import Dojo, Ninja
+_________________________________________________________________________________________________________
+* Query: Create 3 new dojos
+>>> dojo1 = Dojo.objects.create(name = "dojo1", city = "Chicago", state = "US")
+>>> dojo2 = Dojo.objects.create(name = "dojo2", city = "Ramallah", state = "PS")
+>>> dojo3 = Dojo.objects.create(name = "dojo3", city = "New York", state = "US")
+_________________________________________________________________________________________________________
+* Query: Delete the 3 dojos you just created
+>>> dojo1.delete()
+    (1, {'dojo_ninjas_app.Dojo': 1})
+>>> dojo2.delete()
+    (1, {'dojo_ninjas_app.Dojo': 1})
+>>> dojo3.delete()
+    (1, {'dojo_ninjas_app.Dojo': 1})
+_________________________________________________________________________________________________________
+* Query: Create 3 more dojos
+>>> dojo1 = Dojo.objects.create(name = "New_dojo1", city = "Chicago", state = "US")
+>>> dojo2 = Dojo.objects.create(name = "New_dojo2", city = "Ramallah", state = "PS")
+>>> dojo3 = Dojo.objects.create(name = "New_dojo3", city = "New York", state = "US")
+_________________________________________________________________________________________________________
+* Query: Create 3 ninjas that belong to the first dojo
+>>> ninja1 = Ninja.objects.create(dojo_id = dojo1, first_name="Joe", last_name="Park")
+>>> ninja2 = Ninja.objects.create(dojo_id = dojo1, first_name="Tia", last_name="Andreas")
+>>> ninja3 = Ninja.objects.create(dojo_id = dojo1, first_name="Lee", last_name="Wang")
+_________________________________________________________________________________________________________
+* Query: Create 3 ninjas that belong to the second dojo
+>>> ninja4 = Ninja.objects.create(dojo_id = dojo2, first_name="Rand", last_name="Farhoud")
+>>> ninja5 = Ninja.objects.create(dojo_id = dojo2, first_name="Mays", last_name="Ahmad")
+>>> ninja6 = Ninja.objects.create(dojo_id = dojo2, first_name="Ali", last_name="Barakat")
+_________________________________________________________________________________________________________
+* Query: Create 3 ninjas that belong to the third dojo
+>>> ninja7 = Ninja.objects.create(dojo_id = dojo3, first_name="Jake", last_name="Oliver")
+>>> ninja8 = Ninja.objects.create(dojo_id = dojo3, first_name="Charlie", last_name="James")
+>>> ninja9 = Ninja.objects.create(dojo_id = dojo3, first_name="Ava", last_name="Kyle")
+_________________________________________________________________________________________________________
+* Query: Retrieve all the ninjas from the first dojo
+>>> dojo1.ninjas.all()
+<QuerySet [<Ninja: Ninja object (1)>, <Ninja: Ninja object (2)>, <Ninja: Ninja object (3)>]>
+
+OR 
+
+>>> Dojo.objects.first().ninjas.all()
+<QuerySet [<Ninja: Ninja object (1)>, <Ninja: Ninja object (2)>, <Ninja: Ninja object (3)>]>
+_________________________________________________________________________________________________________
+* Query: Retrieve all the ninjas from the last dojo
+>>> dojo3.ninjas.all()
+<QuerySet [<Ninja: Ninja object (7)>, <Ninja: Ninja object (8)>, <Ninja: Ninja object (9)>]>
+
+OR 
+
+>>> Dojo.objects.last().ninjas.all()
+<QuerySet [<Ninja: Ninja object (7)>, <Ninja: Ninja object (8)>, <Ninja: Ninja object (9)>]>
+_________________________________________________________________________________________________________
+* Query: Retrieve the last ninja's dojo 
+>>> ninja9.dojo_id
+<Dojo: Dojo object (6)> 
+
+OR 
+get a referance for last ninja --> ninja = Ninja.objects.last()
+then show any attribute
+_________________________________________________________________________________________________________
+* Add a new text field called "desc" to your Dojo class 
+* Create and run the migration files to update the table in your database. If needed, provide a default value of "old dojo"
+
+class Dojo(models.Model):
+    name = models.CharField(max_length=255)
+    city = models.CharField(max_length=255)
+    state = models.CharField(max_length=2)
+    desc = models.TextField(default = "old dojo")
+
+> py manage.py makemigrations
+    Migrations for 'dojo_ninjas_app':
+      dojo_ninjas_app\migrations\0002_dojo_desc.py
+        - Add field desc to dojo
+
+> py manage.py migrate
+    Operations to perform:
+      Apply all migrations: admin, auth, contenttypes, dojo_ninjas_app, sessions
+    Running migrations:
+      Applying dojo_ninjas_app.0002_dojo_desc... OK
+_________________________________________________________________________________________________________
+* Query: Create a new dojo
+>>> from dojo_ninjas_app.models import Dojo
+>>> new_dojo = Dojo.objects.create(name="dojo4", city="Hong Kong", state = "CN", desc = "New dojo after modify table and add a this new field")
