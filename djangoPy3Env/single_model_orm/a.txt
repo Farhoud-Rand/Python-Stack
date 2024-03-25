@@ -1,0 +1,39 @@
+* Run the shell and import your User model:
+$ py manage.py shell
+>>> from users_app.models import User
+
+* Query: Create 3 new users
+>>> user1 = User.objects.create(first_name = "Rand", last_name="Farhoud", email_address="Rand@gmail.com",age=20)
+>>> user2 = User.objects.create(first_name = "Ali", last_name="Ahmad", email_
+address="Ali@gmail.com", age = 30)
+>>> user3 = User.objects.create(first_name = "Monu", last_name="Salem", email
+_address="Monu@gmail.com", age = 35)
+
+* Query: Retrieve all the users
+>>> User.objects.all()
+    <QuerySet [<User: User object (1)>, <User: User object (2)>, <User: User object (3)>]>
+
+* Query: Retrieve the first user
+>>> User.objects.first()
+    <User: User object (1)>
+
+OR to get more information
+>>> User.objects.first().__dict__
+    {'_state': <django.db.models.base.ModelState object at 0x000001B4D99DF380>, 'id': 1, 'first_name': 'Rand', 'last_name': 'Farhoud', 'email_address': 'Rand@gmail.com', 'age': 20, 'create_at': datetime.datetime(2024, 3, 24, 9, 0, 14, 479231, tzinfo=datetime.timezone.utc), 'updated_at': datetime.datetime(2024, 3, 24, 9, 0, 14, 479231, tzinfo=datetime.timezone.utc)}
+
+* Query: Change the user with id=3 so their last name is Pancakes.
+>>> user3.last_name="Pancakes"
+>>> user3.save()
+
+* Query: Delete the user with id=2 from the database
+>>> user2.delete()
+    (1, {'users_app.User': 1})
+
+* Query: Get all the users, sorted by their first name
+>>> User.objects.all().order_by('first_name')
+    <QuerySet [<User: User object (3)>, <User: User object (1)>]>
+
+* BONUS Query: Get all the users, sorted by their first name in descending order
+>>> User.objects.all().order_by('-first_name')
+    <QuerySet [<User: User object (1)>, <User: User object (3)>]>
+

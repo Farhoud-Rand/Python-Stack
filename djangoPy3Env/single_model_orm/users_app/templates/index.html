@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <h1>All the Users</h1>
+        <table class="table table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Age</th>
+                </tr>
+            </thead>
+            <!-- Show user information in the table -->
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.first_name }} {{ user.last_name }}</td>
+                    <td>{{ user.email_address }}</td>
+                    <td>{{ user.age }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <hr>
+        <!-- Form to add new user -->
+        <h1>Add a User</h1>
+        <!-- Add class need validation and attribute novalidate -->
+        <form action="/add" method="post" class="needs-validation" novalidate>
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="first_name">First Name</label>
+                        <input type="text" class="form-control" name="first_name" id="first_name"
+                            placeholder="User First Name" required>
+                        <div class="invalid-feedback">
+                            Please provide a first name.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="last_name">Last Name</label>
+                        <input type="text" class="form-control" name="last_name" id="last_name"
+                            placeholder="User Last Name" required>
+                        <div class="invalid-feedback">
+                            Please provide a last name.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" name="email" id="email" placeholder="User Email"
+                            required>
+                        <div class="invalid-feedback">
+                            Please provide a valid email address.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="age">Age</label>
+                        <input type="number" class="form-control" name="age" id="age" placeholder="User Age" required>
+                        <div class="invalid-feedback">
+                            Please provide the user age.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-info">Add</button>
+        </form>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+
+</html>
