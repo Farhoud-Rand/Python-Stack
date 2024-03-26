@@ -43,6 +43,7 @@ def show_author_details(request, id):
     context = {
         'author': models.get_author_by_id(id),
         'books':models.get_all_books(),
+        'not_in':models.get_all_book_not_in_author_books(id),
     }
     return render (request, "show_author.html", context) 
 

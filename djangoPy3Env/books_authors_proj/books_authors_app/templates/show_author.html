@@ -37,6 +37,13 @@
                     <option value="{{ book.id }}">{{ book.title }}</option>
                     {% endfor %}
                 </select>
+                <label for="not_in">Book not in Authors book</label>
+                <select class="form-control" name="book" required>
+                    <option value="" disabled selected>Select an book</option>
+                    {% for book in not_in %}
+                    <option value="{{ book.id }}">{{ book.title }}</option>
+                    {% endfor %}
+                </select>
             </div>
             <button type="submit" class="btn btn-info">Add Book</button>
         </form>

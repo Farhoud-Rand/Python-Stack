@@ -64,3 +64,8 @@ def add_book_for_author(request):
         book_id = int(request.POST['book'])
         book = get_book_by_id(book_id)
         author.books.add(book)
+
+def get_all_book_not_in_author_books(id):
+    author = get_author_by_id(id)
+    author_books = author.books.all()
+    return Book.objects.exclude(id__in=[book.id for book in author_books])
