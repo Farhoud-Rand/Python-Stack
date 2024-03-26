@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment: Books & Authors with Template</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-md-5">
+                <!-- Add New Book Form -->
+                <h2>Add a Book</h2>
+                <form action="/add_book" method="post" class="needs-validation" novalidate>
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="book_title">Title</label>
+                        <input type="text" class="form-control" id="book_title" name="book_title"
+                            placeholder="Enter title of the book" required>
+                        <div class="invalid-feedback">
+                            Please provide a book title.
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="book_desc">Description</label>
+                        <input type="text" class="form-control" id="book_desc" name="book_desc"
+                            placeholder="Enter a description of the book" required>
+                        <div class="invalid-feedback">
+                            Please provide a book description.
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-info">Add Book</button>
+                </form>
+            </div>
+            <div class="col-md-2"></div>
+            <!-- Show books id and title in a table -->
+            <div class="col-md-5">
+                <table class="table table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for book in books %}
+                        <tr>
+                            <td>{{ book.id }}</td>
+                            <td>{{ book.title }}</td>
+                            <td><a href="/books/{{ book.id }}">View</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+
+</html>

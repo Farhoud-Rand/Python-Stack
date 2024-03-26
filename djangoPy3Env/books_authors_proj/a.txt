@@ -1,0 +1,144 @@
+* Create the Book class model
+class Book(models.Model):
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+__________________________________________________________________________________________________________
+* Create the Author class model
+class Author(models.Model):
+    first_name = models.CharField(max_length=45)
+    last_name = models.CharField(max_length=45)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True) 
+books = models.ManyToManyField(Book, related_name='authors')
+__________________________________________________________________________________________________________
+* Create and run the migration files to create the tables in your database
+>py manage.py makemigrations
+Migrations for 'books_authors_app':
+  books_authors_app\migrations\0001_initial.py
+    - Create model Author
+    - Create model Book
+>py manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, books_authors_app, contenttypes, sessions
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying admin.0003_logentry_add_action_flag_choices... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying books_authors_app.0001_initial... OK
+  Applying sessions.0001_initial... OK
+__________________________________________________________________________________________________________
+* Query: Create 5 books with the following names: C Sharp, Java, Python, PHP, Ruby
+>>> book1 = Book.objects.create(title = "C Sharp", description = "Test book1")
+>>> book2 = Book.objects.create(title = "Java", description = "Test book 2")
+>>> book3 = Book.objects.create(title = "Python", description = "Test book 3")
+>>> book4 = Book.objects.create(title = "PHP", description = "Test book 4")
+>>> book5 = Book.objects.create(title = "Ruby", description = "Test book 5")
+__________________________________________________________________________________________________________
+* Query: Create 5 different authors: Jane Austen, Emily Dickinson, Fyodor Dostoevsky, William Shakespeare, Lau Tzu
+>>> author1 = Author.objects.create(first_name = "Jane", last_name = "Austen")
+>>> author2 = Author.objects.create(first_name = "Emily", last_name = "Dickinson")
+>>> author3 = Author.objects.create(first_name = "Fyodor", last_name = "Dostoevsky")
+>>> author4 = Author.objects.create(first_name = "William", last_name = "Shakespeare")
+>>> author5 = Author.objects.create(first_name = "Lau", last_name = "Tzu")
+__________________________________________________________________________________________________________
+* Add a new text field in the authors table called 'notes'.
+# Author class
+class Author(models.Model):
+    first_name = models.CharField(max_length=45)
+    last_name = models.CharField(max_length=45)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True) 
+    notes = models.TextField(default = "empty")
+    books = models.ManyToManyField(Book, related_name='authors')
+__________________________________________________________________________________________________________
+* Create and run the migration files to update the table in your database.
+>py manage.py makemigrations
+Migrations for 'books_authors_app':
+  books_authors_app\migrations\0003_author_notes.py
+    - Add field notes to author
+
+>py manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, books_authors_app, contenttypes, sessions
+Running migrations:
+  Applying books_authors_app.0003_author_notes... OK
+__________________________________________________________________________________________________________
+* Query: Change the name of the C Sharp book to C#
+>>> book1.title = "C#"
+>>> book1.save()
+__________________________________________________________________________________________________________
+* Query: Change the first name of the 4th author to Bill
+>>> author4.first_name = "Bill"
+>>> author4.save()
+__________________________________________________________________________________________________________
+* Query: Assign the first author to the first 2 books
+>>> author1.books.add(book1)
+>>> author1.books.add(book2)
+__________________________________________________________________________________________________________
+* Query: Assign the second author to the first 3 books
+>>> author2.books.add(book1)
+>>> author2.books.add(book2)
+>>> author2.books.add(book3)
+__________________________________________________________________________________________________________
+* Query: Assign the third author to the first 4 books
+>>> author3.books.add(book1)
+>>> author3.books.add(book2)
+>>> author3.books.add(book3)
+>>> author3.books.add(book4)
+__________________________________________________________________________________________________________
+* Query: Assign the fourth author to the first 5 books (or in other words, all the books)
+>>> author4.books.add(book1)
+>>> author4.books.add(book2)
+>>> author4.books.add(book3)
+>>> author4.books.add(book4)
+>>> author4.books.add(book5)
+__________________________________________________________________________________________________________
+* Query: Retrieve all the authors for the 3rd book
+>>> book3.authors.all()
+<QuerySet [<Author: Author object (2)>, <Author: Author object (3)>, <Author: Author object (4)>]>
+
+OR
+
+>>> book3.authors.all().values()
+<QuerySet [{'id': 2, 'first_name': 'Emily', 'last_name': 'Dickinson', 'created_at': datetime.datetime(2024, 3, 26, 9, 15, 4, 788194, tzinfo=datetime.timezone.utc), 'updated_at': datetime.datetime(2024, 3, 26, 9, 15, 4, 788194, tzinfo=datetime.timezone.utc)}, {'id': 3, 'first_name': 'Fyodor', 'last_name': 'Dostoevsky', 'created_at': datetime.datetime(2024, 3, 26, 9, 15, 38, 823106, tzinfo=datetime.timezone.utc), 'updated_at': datetime.datetime(2024, 3, 26, 9, 15, 38, 823106, tzinfo=datetime.timezone.utc)}, {'id': 4, 'first_name': 'Bill', 'last_name': 'Shakespeare', 'created_at': datetime.datetime(2024, 3, 26, 9, 16, 10, 495543, tzinfo=datetime.timezone.utc), 'updated_at': datetime.datetime(2024, 3, 26, 9, 25, 14, 258720, tzinfo=datetime.timezone.utc)}]>
+__________________________________________________________________________________________________________
+* Query: Remove the first author of the 3rd book
+>>> this_author = book3.authors.all().first()
+>>> book3.authors.remove(this_author)
+__________________________________________________________________________________________________________
+* Query: Add the 5th author as one of the authors of the 2nd book
+>>> book2.authors.add(author5)
+__________________________________________________________________________________________________________
+* Query: Find all the books that the 3rd author is part of
+>>> author3.books.all()
+<QuerySet [<Book: Book object (1)>, <Book: Book object (2)>, <Book: Book object (3)>, <Book: Book object (4)>]>
+
+OR
+
+>>> author3.books.all().values()
+<QuerySet [{'id': 1, 'title': 'C#', 'description': 'Test book 1', 'created_at': datetime.datetime(2024, 3, 26, 9, 9, 57, 108825, tzinfo=datetime.timezone.utc), 'updated_at': datetime.datetime(2024, 3, 26, 9, 23, 40, 905859, tzinfo=datetime.timezone.utc)}, {'id': 2, 'title': 'Java', 'description': 'Test book 2', 'created_at': datetime.datetime(2024, 3, 26, 9, 11, 3, 253535, tzinfo=datetime.timezone.utc), 'updated_at': datetime.datetime(2024, 3, 26, 9, 11, 3, 253535, tzinfo=datetime.timezone.utc)}, {'id': 3, 'title': 'Python', 'description': 'Test book 3', 'created_at': datetime.datetime(2024, 3, 26, 9, 11, 22, 606699, tzinfo=datetime.timezone.utc), 'updated_at': datetime.datetime(2024, 3, 26, 9, 11, 22, 606699, tzinfo=datetime.timezone.utc)}, {'id': 4, 'title': 'PHP', 'description': 'Test book 4', 'created_at': datetime.datetime(2024, 3, 26, 9, 11, 36, 437154, tzinfo=datetime.timezone.utc), 'updated_at': datetime.datetime(2024, 3, 26, 9, 11, 36, 437154, tzinfo=datetime.timezone.utc)}]>
+__________________________________________________________________________________________________________
+* Query: Find all the authors that contributed to the 5th book
+>>> book5.authors.all()
+<QuerySet [<Author: Author object (4)>]>
+
+OR 
+
+>>> book5.authors.all().values()
+<QuerySet [{'id': 4, 'first_name': 'Bill', 'last_name': 'Shakespeare', 'created_at': datetime.datetime(2024, 3, 26, 9, 16, 10, 495543, tzinfo=datetime.timezone.utc), 'updated_at': datetime.datetime(2024, 3, 26, 9, 25, 14, 258720, tzinfo=datetime.timezone.utc)}]>

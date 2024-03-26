@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment: Books & Authors with Template</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-md-5">
+                <!-- Add New Author Form -->
+                <h2>Add an Author</h2>
+                <form action="/add_author" method="post" class="needs-validation" novalidate>
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="first_name">First Name</label>
+                        <input type="text" class="form-control" id="first_name" name="first_name"
+                            placeholder="Enter first name for the author" required>
+                        <div class="invalid-feedback">
+                            Please provide a first name for the author.
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="last_name">Last Name</label>
+                        <input type="text" class="form-control" id="last_name" name="last_name"
+                            placeholder="Enter last name for the author" required>
+                        <div class="invalid-feedback">
+                            Please provide a last name for the author.
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="notes">Notes</label>
+                        <input type="text" class="form-control" id="notes" name="notes" placeholder="Enter notes"
+                            required>
+                        <div class="invalid-feedback">
+                            Please provide notes.
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-info">Add Author</button>
+                </form>
+            </div>
+            <div class="col-md-2"></div>
+            <!-- Show authors id and name in a table -->
+            <div class="col-md-5">
+                <table class="table table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for author in authors %}
+                        <tr>
+                            <td>{{ author.id }}</td>
+                            <td>{{ author.first_name }} {{ author.last_name }}</td>
+                            <td><a href="/authors/{{ author.id }}">View</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+
+</html>

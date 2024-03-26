@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show Book Details</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Show book information -->
+        <div class="card mt-5">
+            <div class="card-body">
+                <h3 class="card-title">{{ book.title }}</h3>
+                <p class="card-text"><strong>ID:</strong> {{ book.id }}</p>
+                <p class="card-text"><strong>Description:</strong> {{ book.description }}</p>
+                <p class="card-text"><strong>Authors:</strong></p>
+                <ul>
+                    {% for author in book.authors.all %}
+                    <li>{{ author.first_name }} {{ author.last_name }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <!-- Add form to add a new author for this book -->
+        <form action="/add_author_for_book" method="post" class="needs-validation col-md-5 mt-4" novalidate>
+            {% csrf_token %}
+            <div class="form-group">
+                <input type="hidden" name="book" value="{{ book.id }}">
+                <select class="form-control" name="author" required>
+                    <option value="" disabled selected>Select an author</option>
+                    {% for author in authors %}
+                    <option value="{{ author.id }}">{{ author.first_name }} {{ author.last_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-info">Add Author</button>
+        </form>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
