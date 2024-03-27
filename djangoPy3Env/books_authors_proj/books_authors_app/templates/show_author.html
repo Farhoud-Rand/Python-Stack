@@ -30,14 +30,15 @@
         <form action="/add_book_for_author" method="post" class="needs-validation col-md-5 mt-4" novalidate>
             {% csrf_token %}
             <div class="form-group">
-                <input type="hidden" name="author" value="{{ author.id }}">
+                <label for="in">All Books</label>
+                <input type="hidden" name="author" id="in" value="{{ author.id }}">
                 <select class="form-control" name="book" required>
                     <option value="" disabled selected>Select an book</option>
                     {% for book in books %}
                     <option value="{{ book.id }}">{{ book.title }}</option>
                     {% endfor %}
                 </select>
-                <label for="not_in">Book not in Authors book</label>
+                <label for="not_in">Book not in Author books</label>
                 <select class="form-control" name="book" required>
                     <option value="" disabled selected>Select an book</option>
                     {% for book in not_in %}

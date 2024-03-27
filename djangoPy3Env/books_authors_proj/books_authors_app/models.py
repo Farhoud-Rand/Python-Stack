@@ -43,7 +43,8 @@ def add_author_for_book(request):
         book_id = int(request.POST['book'])
         book = get_book_by_id(book_id)
         book.authors.add(author)
-#####################################################################
+        return book_id
+
 # Function to add new book
 def add_author(request):
     if (request.method == 'POST'):
@@ -56,7 +57,7 @@ def add_author(request):
 def get_author_by_id(id):
     return Author.objects.get(id = id)
 
-# function to add new book for a specific author
+# Function to add new book for a specific author
 def add_book_for_author(request):
     if (request.method == 'POST'):
         author_id = int(request.POST['author'])
@@ -64,8 +65,16 @@ def add_book_for_author(request):
         book_id = int(request.POST['book'])
         book = get_book_by_id(book_id)
         author.books.add(book)
+        return author_id
 
+# Function to get all the books that not in author books list
 def get_all_book_not_in_author_books(id):
     author = get_author_by_id(id)
     author_books = author.books.all()
     return Book.objects.exclude(id__in=[book.id for book in author_books])
+
+# Function to get all the authors that not in book authors list
+def get_all_author_not_in_book_authors(id):
+    book = get_book_by_id(id)
+    book_authors = book.authors.all()
+    return Author.objects.exclude(id__in=[book.id for book in book_authors])

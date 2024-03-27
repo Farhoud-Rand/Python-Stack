@@ -85,6 +85,7 @@
         <div id="list_dojos">
             {% for dojo in dojos %}
             <div class="row">
+                <!-- Or we can use {{ dojo.ninjas.count }} -->
                 <h3 class="col-md-10">Ninjas at the {{ dojo.name }} - {{ dojo.ninjas.all|length }}</h3>
                 <a href="delete/{{dojo.id}}" class="btn btn-info col-md-2">Delete</a>
             </div>
