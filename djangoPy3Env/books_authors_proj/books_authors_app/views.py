@@ -10,8 +10,9 @@ def index(request):
 
 # This function is used to add a new book
 def add_book(request):
-    models.add_book(request)
-    return redirect("/")
+    if (request.method == 'POST'):
+        models.add_book(request.POST)
+        return redirect("/")
 
 # This function is used to render a new page that shows the book information
 def show_book_details(request, id):
@@ -19,14 +20,14 @@ def show_book_details(request, id):
         'book': models.get_book_by_id(id),
         'authors':models.get_all_authors(),
         'not_in':models.get_all_author_not_in_book_authors(id),
-
     }
     return render (request, "show_book.html", context) 
 
 # This function is used to add a new author for a specific book 
 def add_author_for_book(request):
-    id = str(models.add_author_for_book(request))
-    return redirect("/books/"+id)
+    if (request.method == 'POST'):
+        id = str(models.add_author_for_book(request.POST))
+        return redirect("/books/"+id)
 
 # This function will show all authors in the table and add author form
 def show_authors(request):
@@ -37,8 +38,9 @@ def show_authors(request):
 
 # This function is used to add a new author
 def add_author(request):
-    models.add_author(request)
-    return redirect("/authors")
+    if (request.method == 'POST'):
+        models.add_author(request.POST)
+        return redirect("/authors")
 
 # This function is used to render a new page that shows the author information
 def show_author_details(request, id):
@@ -51,5 +53,6 @@ def show_author_details(request, id):
 
 # This function is used to add a new book for a specific author 
 def add_book_for_author(request):
-    id = str(models.add_book_for_author(request))
-    return redirect("/authors/"+id)
+    if (request.method == 'POST'):
+        id = str(models.add_book_for_author(request.POST))
+        return redirect("/authors/"+id)
