@@ -86,8 +86,12 @@
             {% for dojo in dojos %}
             <div class="row">
                 <!-- Or we can use {{ dojo.ninjas.count }} -->
-                <h3 class="col-md-10">Ninjas at the {{ dojo.name }} - {{ dojo.ninjas.all|length }}</h3>
-                <a href="delete/{{dojo.id}}" class="btn btn-info col-md-2">Delete</a>
+                <h3 class="col-md-9">Ninjas at the {{ dojo.name }} - {{ dojo.ninjas.all|length }}</h3>
+                <form action="delete" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="id" value="{{dojo.id}}">
+                    <input type="submit" value="Delete" class="btn btn-info">
+                </form>
             </div>
             <ul>
                 {% for ninja in dojo.ninjas.all %}

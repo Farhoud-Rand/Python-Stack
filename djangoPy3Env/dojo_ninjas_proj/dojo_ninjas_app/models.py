@@ -22,23 +22,22 @@ def get_all_ninjas():
     return Ninja.objects.all()
 
 # This functions is used to add a new dojo to the Dojo table 
-def add_dojo(request):
-    if (request.method == 'POST'):
-        dojo_name = request.POST['dojo_name']
-        dojo_city = request.POST['dojo_city']
-        dojo_state = request.POST['dojo_state']
+def add_dojo(request_data):
+    dojo_name = request_data['dojo_name']
+    dojo_city = request_data['dojo_city']
+    dojo_state = request_data['dojo_state']
     Dojo.objects.create(name=dojo_name, city=dojo_city, state=dojo_state)
 
 # This functions is used to add a new ninja to the Ninja table 
-def add_ninja(request):
-    if (request.method == 'POST'):
-        dojo_id = int(request.POST['dojo'])
-        ninja_first_name = request.POST['ninja_first_name']
-        ninja_last_name = request.POST['ninja_last_name']
+def add_ninja(request_data):
+    dojo_id = int(request_data['dojo'])
+    ninja_first_name = request_data['ninja_first_name']
+    ninja_last_name = request_data['ninja_last_name']
     dojo = Dojo.objects.get(id=dojo_id)
     Ninja.objects.create(dojo_id=dojo, first_name=ninja_first_name, last_name=ninja_last_name)
 
 # This functions is used to delete a dojo from the Dojo table 
-def delete_dojo(id):
+def delete_dojo(request_data):
+    id = request_data["id"]
     dojo = Dojo.objects.get(id = id)
     dojo.delete()
