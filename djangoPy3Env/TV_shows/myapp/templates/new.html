@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container mx-auto">
+        <div class="row mt-5">
+            <h1 class="col-8">Add a New Show</h1>
+            <div class="col-2"></div>
+            <a class="col-2" href="/shows">Go Back</a>
+        </div>
+        <!-- Add class need validation and attribute novalidate -->
+        <form action="/add" method="post" class="needs-validation" novalidate>
+            {% csrf_token %}
+            <div class="col-8">
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control" name="title" id="title" placeholder="Show title" required>
+                    <div class="invalid-feedback">
+                        Please provide a title.
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="network">Network</label>
+                            <input type="text" class="form-control" name="network" id="network"
+                                placeholder="Show network" required>
+                            <div class="invalid-feedback">
+                                Please provide a network.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="release_date">Release Date</label>
+                            <input type="date" class="form-control" name="release_date" id="release_date" required>
+                            <div class="invalid-feedback">
+                                Please provide a release date in MM-DD-YYYY format.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea class="form-control" id="description" name="description" rows="5"></textarea>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-info">Create</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

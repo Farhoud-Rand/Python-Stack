@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Read (one)</title>
+    <!-- Bootstrap CSS -->
+    {% load static %}
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <div class="container p-4">
+        <div class="row mt-2 mb-2">
+            <h1 class="col-8">TV Show {{ show.id }}</h1>
+            <div class="col-2"></div>
+            <a class="col-2" href="/shows">Go Back</a>
+        </div>
+
+        <h6><strong>Title:</strong> {{ show.title }}</h6>
+        <h6><strong>Network:</strong> {{ show.network }}</h6>
+        <h6><strong>Release Date:</strong> {{ show.release_date }}</h6>
+        <h6 class="mb-5"><strong>Description:</strong> {{ show.description }}</h6>
+        <h6>Last Updated: {{ show.updated_at }}</h6>
+        <h6><a href="/shows/{{ show.id }}/edit" class="col-1">Edit</a>|<a href="/shows/{{ show.id }}/destroy"
+                class="col-1">Delete</a></h6>
+    </div>
+
+</body>
+
+</html>
