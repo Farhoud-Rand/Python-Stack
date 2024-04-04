@@ -4,7 +4,7 @@ hr {
 }
 
  /* Change input focus color */
- input.form-control:focus {
+ input.form-control:focus, textarea.form-control:focus {
     border-color: #061d21; 
     box-shadow: 0 0 0 0.2rem #999999; 
 }

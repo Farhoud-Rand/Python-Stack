@@ -18,6 +18,13 @@
             <div class="col-2"></div>
             <a class="col-2" href="/shows">Go Back</a>
         </div>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
         <!-- Add class need validation and attribute novalidate -->
         <form action="/update" method="post" class="needs-validation" novalidate>
             {% csrf_token %}
@@ -47,7 +54,7 @@
                             <input type="date" class="form-control" name="release_date" id="release_date"
                                 value="{{ show.release_date|date:'Y-m-d' }}" required>
                             <div class="invalid-feedback">
-                                Please provide a release date in MM-DD-YYYY format.
+                                Please provide a release date in YYYY-MM-DD format.
                             </div>
                         </div>
                     </div>
@@ -55,7 +62,7 @@
                 <div class="form-group">
                     <label for="description">Description</label>
                     <textarea class="form-control" id="description" name="description"
-                        rows="5"> {{ show.description }}</textarea>
+                        rows="5">{{ show.description }}</textarea>
                 </div>
                 <div class="text-center">
                     <button type="submit" class="btn btn-info">Update</button>
