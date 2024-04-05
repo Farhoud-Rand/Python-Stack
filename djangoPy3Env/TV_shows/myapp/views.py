@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from . import models
 from django.contrib import messages
+from .forms import ShowForm
+
 
 # ******************** C (Create) from CRUD ********************
 # Function to display page that allows us to create new show
@@ -10,18 +12,15 @@ def create(request):
 # Function to add new show to the table
 def add(request):
     if request.method == 'POST':
-        errors = models.Show.objects.basic_validator(request.POST)
-        if len(errors) > 0:
-        # If the errors dictionary contains anything, loop through each key-value pair and make a flash message
-            for key, value in errors.items():
-                messages.error(request, value)
-            # Redirect the user back to the form to fix the errors
-            return redirect("/shows/new")
-        else:
-            # If the errors object is empty, that means there were no errors!
-            # Retrieve the show to be created
+        form = ShowForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # Redirect or do something after successful form submission
             show_id = str(models.add(request.POST)) 
             return redirect("/shows/"+show_id)
+        else:
+            form = ShowForm()
+        return render(request, 'new.html', {'form': form})
 
 # ******************** R (Read one) from CRUD ********************
 # Function to show details of one TV show
