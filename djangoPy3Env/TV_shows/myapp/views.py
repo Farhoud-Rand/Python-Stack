@@ -8,7 +8,9 @@ from .forms import ShowForm
 # Function to display page that allows us to create new show
 def create(request):
     return render(request, "new.html")
-
+# views --> functional base 
+# crispy_forms_tags --> class + func
+# bootstrap django 5 -- class
 # Function to add new show to the table
 def add(request):
     if request.method == 'POST':
@@ -18,9 +20,9 @@ def add(request):
             # Redirect or do something after successful form submission
             show_id = str(models.add(request.POST)) 
             return redirect("/shows/"+show_id)
-        else:
-            form = ShowForm()
-        return render(request, 'new.html', {'form': form})
+    else:
+        form = ShowForm()
+    return render(request, 'new.html', {'form': form})
 
 # ******************** R (Read one) from CRUD ********************
 # Function to show details of one TV show
