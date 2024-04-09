@@ -23,7 +23,6 @@ class ProductForm(forms.ModelForm):
         
     description = forms.CharField(required=False)  # Make description field not required
 
-
     # Validation Function
     def clean(self):
         cleaned_data = super().clean()

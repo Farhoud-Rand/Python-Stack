@@ -1,41 +1,55 @@
 from django import forms
 from .models import Show
 import datetime
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Row, Column, Submit
 
 class ShowForm(forms.ModelForm):
-    release_date = forms.DateField(widget=forms.SelectDateWidget)
+    # To add bootstrap classes for all inputs
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs.update({'class': 'form-control'})
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            'title',
+            Row(
+                Column('network', css_class='form-group col-md-2'),
+                Column('release_date', css_class='form-group col-md-2'),
+                css_class='form-row'
+            ),
+            'description',
+        )
+
+    release_date = forms.DateField(widget=forms.DateInput(attrs={'type':'date'}))
+    description = forms.CharField(label='Description', widget=forms.Textarea(attrs={'rows': 5}), required=False)
+    
     class Meta:
         model = Show
         # exclude = ['created_at', 'updated_at']
         fields = ['title', 'network', 'release_date', 'description']
 
-    def clean_title(self):
-        title = self.cleaned_data.get('title')
+    def clean(self):
+        cleaned_data = super().clean()
+        title = cleaned_data.get('title')
+        network = cleaned_data.get('network')
+        release_date = cleaned_data.get('release_date')
+        description = cleaned_data.get('description')
+
+        # Get the instance being updated if available
+        instance = getattr(self, 'instance', None)
+        
         if len(title) < 3:
-            raise forms.ValidationError("Show title should be at least 3 characters")
-        if Show.objects.filter(title=title).exists():
-            raise forms.ValidationError("This show title already exists! It should be unique")
-        return title
+            self.add_error('title', "Show title should be at least 3 characters")
+          # Check if there's an existing show with the same title but different ID
+        if Show.objects.filter(title=title).exclude(pk=instance.pk).exists():
+            self.add_error('title', "This show title already exists! It should be unique")
 
-    def clean_network(self):
-        network = self.cleaned_data.get('network')
         if not network.isalpha() or len(network) < 4:
-            raise forms.ValidationError("Network name cannot contain numbers or special characters and should be at least 4 characters long")
-        return network
+            self.add_error('network', "Network name cannot contain numbers or special characters and should be at least 4 characters long")
 
-    def clean_release_date(self):
-        release_date = self.cleaned_data.get('release_date')
-        if release_date.month == datetime.datetime.now().month and release_date.year == datetime.datetime.now().year:
-            raise forms.ValidationError("Release date cannot be in the current month and year")
-        return release_date
+        if  release_date > datetime.date.today():
+            self.add_error('release_date', "Release date cannot be in the future")
 
-    def clean_description(self):
-        description = self.cleaned_data.get('description')
-        if len(description) < 10:
-            raise forms.ValidationError("Description should be at least 10 characters or empty")
-        return description
-
-    # def clean(self):
-    #     super().clean()
-    #     cleaned_data = self.cleaned_data
-    #     title = cleaned_data.get('title')
+        if description and len(description) < 10:
+            self.add_error('description', "Description should be at least 10 characters or empty")
