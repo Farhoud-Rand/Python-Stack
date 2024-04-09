@@ -1,8 +1,8 @@
 from django import forms
 from .models import Show
 import datetime
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Row, Column, Submit
+# from crispy_forms.helper import FormHelper
+# from crispy_forms.layout import Layout, Row, Column, Submit
 
 class ShowForm(forms.ModelForm):
     # To add bootstrap classes for all inputs
@@ -10,16 +10,16 @@ class ShowForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
             field.widget.attrs.update({'class': 'form-control'})
-        self.helper = FormHelper()
-        self.helper.layout = Layout(
-            'title',
-            Row(
-                Column('network', css_class='form-group col-md-2'),
-                Column('release_date', css_class='form-group col-md-2'),
-                css_class='form-row'
-            ),
-            'description',
-        )
+        # self.helper = FormHelper()
+        # self.helper.layout = Layout(
+        #     'title',
+        #     Row(
+        #         Column('network', css_class='form-group col-md-2'),
+        #         Column('release_date', css_class='form-group col-md-2'),
+        #         css_class='form-row'
+        #     ),
+        #     'description',
+        # )
 
     release_date = forms.DateField(widget=forms.DateInput(attrs={'type':'date'}))
     description = forms.CharField(label='Description', widget=forms.Textarea(attrs={'rows': 5}), required=False)
@@ -38,7 +38,7 @@ class ShowForm(forms.ModelForm):
 
         # Get the instance being updated if available
         instance = getattr(self, 'instance', None)
-        
+
         if len(title) < 3:
             self.add_error('title', "Show title should be at least 3 characters")
           # Check if there's an existing show with the same title but different ID
