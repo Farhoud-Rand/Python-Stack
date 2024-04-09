@@ -41,7 +41,8 @@ class ShowForm(forms.ModelForm):
 
         if len(title) < 3:
             self.add_error('title', "Show title should be at least 3 characters")
-          # Check if there's an existing show with the same title but different ID
+
+        # Check if there's an existing show with the same title but different ID
         if Show.objects.filter(title=title).exclude(pk=instance.pk).exists():
             self.add_error('title', "This show title already exists! It should be unique")
 
