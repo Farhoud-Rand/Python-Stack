@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    {% load crispy_forms_tags %}
+</head>
+
+<body>
+    <div class="container mt-5">
+        <!-- Add new course form -->
+        <div class="col-7">
+            <h2>Add a new course</h2>
+            <form action="/add" method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <div class="text-right">
+                    <button type="submit" class="btn btn-info text-center col-2">Add</button>
+                </div>
+            </form>
+        </div>
+        <!-- Course table -->
+        <h2 class="mt-2">Courses</h2>
+        <table class="table table-hover">
+            <thead class="thead-light">
+                <tr>
+                    <th>Course Name</th>
+                    <th>Description</th>
+                    <th>Date Added</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for course in courses %}
+                <tr>
+                    <td>{{ course.name }}</td>
+                    <td>{{ course.description.content }}</td>
+                    <td>{{ course.create_at }}</td>
+                    <td><a href="/courses/{{ course.id }}">Show comments</a> | <a
+                            href="/courses/{{ course.id }}/add/comment">Add
+                            comment</a> | <a href="#" onclick="confirmDelete('{{ course.id }}')">Remove</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+</body>
+<!-- SweetAlert library -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+<script>
+    function confirmDelete(courseId) {
+        Swal.fire({
+            title: "Do you want to delete this course?",
+            showCancelButton: true,
+            confirmButtonText: "Yes, delete it",
+            cancelButtonText: "No, keep it",
+            icon: "warning",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Redirect to the delete URL
+                window.location.href = "/courses/destroy/" + courseId;
+            }
+        });
+    }
+</script>
+
+</html>

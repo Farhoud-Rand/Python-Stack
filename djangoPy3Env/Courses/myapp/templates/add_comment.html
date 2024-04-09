@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Comment</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    {% load crispy_forms_tags %}
+</head>
+
+<body>
+    <div class="container p-4">
+        <h2>Add Comment for {{ course.name }}</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-info text-center col-2">Add comment</button>
+        </form>
+    </div>
+</body>
+
+</html>
