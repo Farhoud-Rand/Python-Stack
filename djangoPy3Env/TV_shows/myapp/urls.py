@@ -9,5 +9,5 @@ urlpatterns = [
     path('shows',views.shows),
     path('shows/<int:id>/edit',views.edit),
     path('update',views.update),
-    path('shows/<int:id>/destroy',views.destroy),
+    path('shows/<int:id>/destroy',views.destroy)
 ]
