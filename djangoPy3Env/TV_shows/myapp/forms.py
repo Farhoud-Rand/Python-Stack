@@ -27,7 +27,7 @@ class ShowForm(forms.ModelForm):
     class Meta:
         model = Show
         # exclude = ['created_at', 'updated_at']
-        fields = ['title', 'network', 'release_date', 'description']
+        fields = ['title', 'network', 'release_date']
 
     def clean(self):
         cleaned_data = super().clean()

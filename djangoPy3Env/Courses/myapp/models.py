@@ -22,6 +22,7 @@ class Comment(models.Model):
 
 # function to return all courses 
 def get_all_courses():
+    
     return Course.objects.all()
 
 # Function to create new course object
@@ -36,6 +37,7 @@ def create_description(course, data):
 # Function to return get course by id and return its information
 def get_info(id):
     course = Course.objects.get(id=id)
+    # des = Description(course,"Test one to")
     return course
 
 # Function to delete course by its ID
