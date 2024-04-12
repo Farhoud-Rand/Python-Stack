@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Amadon</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container mt-5 text-center">
+        <h3>Thank you for your business!</h3>
+        <h4 class="mt-4">Orders Information</h4>
+        <table class="table table-bordered col-10 mx-auto">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Order ID</th>
+                    <th>Quantity</th>
+                    <th>Charge</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Loop through each order and display its information -->
+                {% for order in orders %}
+                <tr>
+                    <td>{{ order.id }}</td>
+                    <td>{{ order.quantity_ordered }}</td>
+                    <td>${{ order.total_price }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Display the total charge -->
+        <p>Total charge: <strong>${{ total }}</strong></p>
+
+        <p>You have ordered <strong>{{ orders|length }} </strong>orders so far with Amadon.com!</p>
+        <p><a href="/">Go Back</a></p>
+    </div>
+</body>
+
+</html>
